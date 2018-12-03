@@ -11,19 +11,11 @@ import android.graphics.*;
 import android.widget.*;
 import android.provider.*;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
 import com.microsoft.projectoxford.face.*;
 import com.microsoft.projectoxford.face.contract.*;
 
 import java.util.*;
 
-import org.json.JSONObject;
 
 public class MainActivity extends Activity {
 
@@ -190,30 +182,6 @@ public class MainActivity extends Activity {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ByteArrayInputStream inputStream =
                 new ByteArrayInputStream(outputStream.toByteArray());
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                "",
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(final JSONObject response) {
-                        Log.d(TAG, response.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(final VolleyError error) {
-                Log.w(TAG, error.toString());
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Ocp-Apim-Subscription-Key", "YOUR_API_KEY");
-                Log.d(TAG, params.toString());
-                return params;
-            }
-        };
 
         AsyncTask<InputStream, String, SimilarFace[]> detectTask =
                 new AsyncTask<InputStream, String, SimilarFace[]>() {
